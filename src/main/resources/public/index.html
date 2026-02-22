@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary SPA</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link
+            href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAOjv4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEBEAAAAAEBAAABAQAAAQEREREBAAABEREREREAAAARAREBEAAAAAEREREAAAAAABAAEAAAAAAAEAAQAAAAAAEAAAEAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD//wAA//8AAPyfAADr6wAA6AsAAOADAADyJwAA+A8AAP3fAAD93wAA++8AAP//AAD//wAA"
+            rel="icon" type="image/x-icon" />
+</head>
+<body>
+<nav>
+    <a id="dictionary" href="#/dictionary">Dictionary</a>
+    <a id="Synonyms" href="#/synonyms">Synonyms</a>
+    <a id="Antonyms" href="#/antonyms">Antonyms</a>
+</nav>
+
+<div id="app">
+    <p>Click on a menu item.</p>
+</div>
+
+<script id="default-template" type="text/handlebars-template">
+    <p>Click on a menu item.</p>
+</script>
+
+<script id="dictionary-template" type="text/handlebars-template">
+    <h1>Dictionary</h1>
+    <form id="form">
+        <input class="lookup" id="lookup" name="word" type="text" required/>
+        <input type="submit" value="Lookup"/>
+    </form>
+    <div id="results"></div>
+</script>
+
+<script id="results-template" type="text/handlebars-template">
+    <h2 id="word">{{word}} </h2>
+
+    <h2 id="phonetic">{{phonetic}}</h2>
+    {{#if audio}}
+    <audio controls>
+        <source src="{{audio}}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    {{/if}}
+    {{#each meanings}}
+    <h3 class="part-of-speech">{{partOfSpeech}}</h3>
+    <ol>
+        {{#each definitions}}
+        <li class="definition">
+            {{definition}}
+            {{#if example}}
+            <p class="example">Example: {{example}}</p>
+            {{/if}}
+        </li>
+        {{/each}}
+    </ol>
+    {{/each}}
+    {{#if synonyms}}
+    <h3>Synonyms</h3>
+    <ul>
+        {{#each synonyms}}
+        <li class="related-word">{{this}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
+    {{#if antonyms}}
+    <h3>Antonyms</h3>
+    <ul>
+        {{#each antonyms}}
+        <li class="related-word">{{this}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</script>
+
+<script id="synonyms-template" type="text/handlebars-template">
+    <h1>Synonyms</h1>
+    <form id="form">
+        <input id="lookup" name="word" type="text" required/>
+        <input type="submit" value="Lookup Synonyms"/>
+    </form>
+    <div id="results"></div>
+</script>
+
+<script id="antonyms-template" type="text/handlebars-template">
+    <h1>Antonyms</h1>
+    <form id="form">
+        <input id="lookup" name="word" type="text" required/>
+        <input type="submit" value="Lookup Antonyms"/>
+    </form>
+    <div id="results"></div>
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-router@1.2.8/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+<script src="./js/app.js"></script>
+</body>
+</html>
